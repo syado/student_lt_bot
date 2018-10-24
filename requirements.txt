@@ -2,3 +2,5 @@ discord
 asyncio
 requests_oauthlib
 requests
+aiohttp
+websockets
