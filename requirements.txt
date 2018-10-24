@@ -1,0 +1,4 @@
+discord
+asyncio
+requests_oauthlib
+requests
