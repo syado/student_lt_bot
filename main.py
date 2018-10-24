@@ -21,15 +21,15 @@ try:
     token = config["discord"]["token"]
     channel_id = config["discord"]["channel_id"]
 except:
-    hashtag = os.enviro["twitter_hashtag"]
-    url = os.environ["twitter_api_url"]
-    consumer_key = os.environ["twitter_consumer_key"]
-    consumer_secret = os.environ["twitter_consumer_secret"]
-    access_token_key = os.environ["twitter_access_token_key"]
-    access_token_secret = os.environ["twitter_access_token_secret"]
+    hashtag = os.getenv("twitter_hashtag", None)
+    url = os.getenv("twitter_api_url", None)
+    consumer_key = os.getenv("twitter_consumer_key", None)
+    consumer_secret = os.getenv("twitter_consumer_secret", None)
+    access_token_key = os.getenv("twitter_access_token_key", None)
+    access_token_secret = os.getenv("twitter_access_token_secret", None)
 
-    token = os.environ["discord_token"]
-    channel_id = os.environ["discord_channel_id"]
+    token = os.getenv("discord_token", None)
+    channel_id = os.getenv("discord_channel_id", None)
 
 
 client = discord.Client()
