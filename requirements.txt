@@ -2,3 +2,6 @@ discord
 asyncio
 requests_oauthlib
 requests
+re
+json
+os
