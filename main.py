@@ -21,6 +21,7 @@ try:
     token = config["discord"]["token"]
     channel_id = config["discord"]["channel_id"]
     server_id = config["discord"]["server_id"]
+    entry_id = config["discord"]["entry_id"]
 except:
     hashtag = os.getenv("twitter_hashtag", None)
     url = os.getenv("twitter_api_url", None)
@@ -32,6 +33,7 @@ except:
     token = os.getenv("discord_token", None)
     channel_id = os.getenv("discord_channel_id", None)
     server_id = os.getenv("discord_server_id", None)
+    entry_id = os.getenv("discord_entry_id", None)
 
 
 client = discord.Client()
@@ -47,13 +49,13 @@ async def on_ready():
 async def on_member_join(member):
     if member.server.id == server_id:
         m = "ようこそ<@"+member.id+">さん\n<#429523809926905865>を読み次第「ok」と入力してください\n実践していただければ書き込み可能となります"
-        return await client.send_message(client.get_channel(channelid), m)
+        return await client.send_message(client.get_channel(entry_id), m)
 
 @client.event
 async def on_member_remove(member):
     if member.server.id == server_id:
         m = "<@"+member.id+">さんが退会しました"
-        return await client.send_message(client.get_channel(channelid), m)
+        return await client.send_message(client.get_channel(entry_id), m)
 
 @client.event
 async def on_message(message):
