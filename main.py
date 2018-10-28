@@ -20,6 +20,7 @@ try:
 
     token = config["discord"]["token"]
     channel_id = config["discord"]["channel_id"]
+    server_id = config["discord"]["server_id"]
 except:
     hashtag = os.getenv("twitter_hashtag", None)
     url = os.getenv("twitter_api_url", None)
@@ -30,6 +31,7 @@ except:
 
     token = os.getenv("discord_token", None)
     channel_id = os.getenv("discord_channel_id", None)
+    server_id = os.getenv("discord_server_id", None)
 
 
 client = discord.Client()
@@ -42,7 +44,24 @@ async def on_ready():
     print('It is ready')
 
 @client.event
+async def on_member_join(member):
+    if member.server.id == server_id:
+        m = "ようこそ<@"+member.id+">さん\n<#429523809926905865>を読み次第「ok」と入力してください\n実践していただければ書き込み可能となります"
+        return await client.send_message(client.get_channel(channelid), m)
+
+@client.event
+async def on_member_remove(member):
+    if member.server.id == server_id:
+        m = "<@"+member.id+">さんが退会しました"
+        return await client.send_message(client.get_channel(channelid), m)
+
+@client.event
 async def on_message(message):
+    if message.server.id == server_id:
+        if message.content.lower() == "ok":
+            role = discord.utils.get(message.server.roles, name="user")
+            return await client.add_roles(message.author, role)
+
     if message.channel.id == channel_id:
         user = message.author.display_name
         if len(user) > 10:
@@ -99,8 +118,4 @@ async def on_message(message):
             print ("Error")
 
 if __name__ == "__main__":
-    while True:
-        try:
-            client.run(token)
-        except:
-            pass
+    client.run(token)
