@@ -52,13 +52,13 @@ async def on_ready():
 @client.event
 async def on_member_join(member):
     if member.guild.id == server_id:
-        m = "ようこそ<@"+member.id+">さん\n<#429523809926905865>を読み次第「ok」と入力してください\n実践していただければ書き込み可能となります"
+        m = "ようこそ<@"+str(member.id)+">さん\n<#429523809926905865>を読み次第「ok」と入力してください\n実践していただければ書き込み可能となります"
         return await send(client.get_channel(entry_id), m)
 
 @client.event
 async def on_member_remove(member):
     if member.guild.id == server_id:
-        m = "<@"+member.id+">さんが退会しました"
+        m = "<@"+str(member.id)+">さんが退会しました"
         return await send(client.get_channel(entry_id), m)
 
 @client.event
