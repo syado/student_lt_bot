@@ -49,21 +49,21 @@ async def on_ready():
 
 @client.event
 async def on_member_join(member):
-    if member.server.id == server_id:
+    if member.guild.id == server_id:
         m = "ようこそ<@"+member.id+">さん\n<#429523809926905865>を読み次第「ok」と入力してください\n実践していただければ書き込み可能となります"
         return await send(client.get_channel(entry_id), m)
 
 @client.event
 async def on_member_remove(member):
-    if member.server.id == server_id:
+    if member.guild.id == server_id:
         m = "<@"+member.id+">さんが退会しました"
         return await send(client.get_channel(entry_id), m)
 
 @client.event
 async def on_message(message):
-    if message.server.id == server_id:
+    if message.guild.id == server_id:
         if message.content.lower() == "ok":
-            role = discord.utils.get(message.server.roles, name="user")
+            role = discord.utils.get(message.guild.roles, name="user")
             return await message.author.add_roles(role)
 
     if message.channel.id == channel_id:
@@ -75,7 +75,7 @@ async def on_message(message):
         while True:
             r = re.search(r"<@[0-9]+>", text)
             if r:
-                member = message.server.get_member(r.group()[2:-1])
+                member = message.guild.get_member(r.group()[2:-1])
                 text = text.replace(r.group(), ">>"+member.name)
             else:
                 break
@@ -83,7 +83,7 @@ async def on_message(message):
         while True:
             r = re.search(r"<@![0-9]+>", text)
             if r:
-                member = message.server.get_member(r.group()[3:-1])
+                member = message.guild.get_member(r.group()[3:-1])
                 text = text.replace(r.group(), ">>"+member.name)
             else:
                 break
@@ -91,7 +91,7 @@ async def on_message(message):
         while True:
             r = re.search(r"<#[0-9]+>", text)
             if r:
-                channel = message.server.get_channel(r.group()[2:-1])
+                channel = message.guild.get_channel(r.group()[2:-1])
                 text = text.replace(r.group(), channel.name+"_ch")
             else:
                 break
@@ -99,7 +99,7 @@ async def on_message(message):
         while True:
             r = re.search(r"<#![0-9]+>", text)
             if r:
-                channel = message.server.get_channel(r.group()[3:-1])
+                channel = message.guild.get_channel(r.group()[3:-1])
                 text = text.replace(r.group(), channel.name+"_ch")
             else:
                 break
