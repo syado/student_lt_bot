@@ -35,7 +35,9 @@ except:
     server_id = os.getenv("discord_server_id", None)
     entry_id = os.getenv("discord_entry_id", None)
 
-
+channel_id = int(channel_id)
+server_id = int(server_id)
+entry_id = int(entry_id)
 client = discord.Client()
 twitter = OAuth1Session(consumer_key, consumer_secret, access_token_key, access_token_secret)
 
