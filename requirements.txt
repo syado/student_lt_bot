@@ -1,4 +1,4 @@
-discord
+discord.py
 asyncio
 requests_oauthlib
 requests
