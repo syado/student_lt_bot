@@ -39,6 +39,8 @@ except:
 client = discord.Client()
 twitter = OAuth1Session(consumer_key, consumer_secret, access_token_key, access_token_secret)
 
+async def send(channel,*args, **kwargs): return await channel.send(*args, **kwargs)
+
 @client.event
 async def on_ready():
     print(client.user.name)
@@ -49,13 +51,13 @@ async def on_ready():
 async def on_member_join(member):
     if member.server.id == server_id:
         m = "ようこそ<@"+member.id+">さん\n<#429523809926905865>を読み次第「ok」と入力してください\n実践していただければ書き込み可能となります"
-        return await client.send_message(client.get_channel(entry_id), m)
+        return await send(client.get_channel(entry_id), m)
 
 @client.event
 async def on_member_remove(member):
     if member.server.id == server_id:
         m = "<@"+member.id+">さんが退会しました"
-        return await client.send_message(client.get_channel(entry_id), m)
+        return await send(client.get_channel(entry_id), m)
 
 @client.event
 async def on_message(message):
