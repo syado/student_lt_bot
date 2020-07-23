@@ -64,7 +64,7 @@ async def on_message(message):
     if message.server.id == server_id:
         if message.content.lower() == "ok":
             role = discord.utils.get(message.server.roles, name="user")
-            return await client.add_roles(message.author, role)
+            return await message.author.add_roles(role)
 
     if message.channel.id == channel_id:
         user = message.author.display_name
